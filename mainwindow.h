@@ -16,6 +16,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
+private slots:
+    void calculateBmi();
+
 private:
     QLineEdit* line_name;
     QDoubleSpinBox* spin_height;

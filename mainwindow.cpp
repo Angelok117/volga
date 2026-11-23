@@ -84,6 +84,14 @@ MainWindow::MainWindow(QWidget *parent)
     layout_main->addStretch();
     layout_main->addWidget(button_calc, 0, Qt::AlignCenter);
     layout_main->addWidget(label_result);
+
+    connect(slider_weight, &QSlider::valueChanged, spin_weight, &QSpinBox::setValue);
+    connect(check_help, &QCheckBox::toggled, label_help, &QLabel::setVisible);
+    connect(button_calc, &QPushButton::clicked, this, &MainWindow::calculateBmi);
 }
 
 MainWindow::~MainWindow() = default;
+
+void MainWindow::calculateBmi()
+{
+}
