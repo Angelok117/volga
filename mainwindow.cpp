@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <cmath>
 #include <QLabel>
 #include <QWidget>
 #include <QLineEdit>
@@ -6,6 +7,7 @@
 #include <QDoubleSpinBox>
 #include <QSlider>
 #include <QCheckBox>
+#include <QLocale>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -94,4 +96,23 @@ MainWindow::~MainWindow() = default;
 
 void MainWindow::calculateBmi()
 {
+    double height = spin_height->value();
+    double weight = spin_weight->value();
+    double bmi = std::round(weight / (height * height) * 10.0) / 10.0;
+
+    QString category;
+    if (bmi < 18.5)
+        category = "недостаток веса";
+    else if (bmi < 25.0)
+        category = "норма";
+    else if (bmi < 30.0)
+        category = "избыток";
+    else
+        category = "ожирение";
+
+    QString result = "ИМТ: " + QLocale(QLocale::Russian).toString(bmi, 'f', 1)
+                     + " (" + category + ")";
+    if (!line_name->text().isEmpty())
+        result = line_name->text() + ", ваш " + result;
+    label_result->setText(result);
 }
